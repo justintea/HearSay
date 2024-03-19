@@ -46,8 +46,8 @@ const openai = new OpenAI({
 const speechTextConvertor = async () => {
   const stResponse = await openai.audio.transcriptions.create({
     // file: fs.createReadStream('testrecording_WPTN2_20240318.m4a'),
-    file: fs.createReadStream('testrecording_20240318_forWhisper.m4a'),
-
+    // file: fs.createReadStream('testrecording_20240318_forWhisper.m4a'),
+    // file: fs.createReadStream('testrecording_20240318_forWhisper.m4a'),
     model: 'whisper-1',
   });
   console.log(stResponse);
@@ -58,23 +58,24 @@ const speechTextConvertor = async () => {
 //? return response and pass to chat
 
 app.post("/api/sendData", async (req, res) => {
-   try {
-    // const { favArtist, favSong, performanceLocation } = req.body;
-     const transcription = await speechTextConvertor(); 
-     
+    try {
+
+    const transcription = await speechTextConvertor(); 
+  
     const summaryResponse = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [{
         'role': 'user',
         'content': `I am passing you an audio file, and when transcribed, it says this: ${transcription}. Please answer a few questions below: 
-        1. About this audio: What do you think this is about? Is this a song, poem, article, history, etc? 
+        1. About this audio: What do you think this is about? Explain if it is likely a song, poem, article, history, etc?  and what it is less likely to be. 
         2. Summary: Can you summarize the content?
-        3. Likely audience: Who do you think this content is most likely written for?
-        4. Full transcript: ${transcription}
+        3. Presence: How many different people do you hear in this audio? 
+        4. Likely audience: Who do you think this content is most likely written for? List examples of occupations or roles which may be recipients of such audio.
+        5. Full transcript: ${transcription}
         Note: after each section, please leave a space before starting the next section. When starting each section, please write the header as I wrote, and start each answer below its header.
         `
       }],
-      max_tokens: 200
+      max_tokens: 700
     });
 
     console.log(summaryResponse);
@@ -90,6 +91,10 @@ app.post("/api/sendData", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
+
+
+//? 20240319 1730 trying to do POST to AWS s3
+
 
 
 //? #1 gpt code for chat assistant

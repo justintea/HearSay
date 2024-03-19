@@ -1,0 +1,68 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.brand {
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* font-family: 'Palatino Linotype', 'Times New Roman'; */
+  font-family: 'Alkatra', system-ui;
+
+}
+
+.brand:hover {
+  /* color:#1677ff; */
+  color: #01628f;
+}
+
+.menu {
+  flex: 1;
+  min-width: 0; 
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+.app-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.auth-buttons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* color: #043a5b ; */
+}
+
+.auth-buttons:hover {
+  /* color:#1677ff; */
+  color: #01628f;
+}
+
+.ant-btn-default:hover {
+  /* background: #yourColor; */
+  border-color: #01628f;
+}
+
+.ant-btn-primary:hover {
+  /* background: #yourColor; */
+  border-color: #01628f;
+}

@@ -25,7 +25,7 @@ export default function AudioInputForm({ user, setUser, setResponseMessage }) {
 
   // const [form] = Form.useForm();
   // const Navigate = useNavigate();
-
+  const [fileList, setFileList] = useState([]);
 
 
   const onFinish = async (values) => {
@@ -134,21 +134,64 @@ export default function AudioInputForm({ user, setUser, setResponseMessage }) {
         {...layout}
         // form={form}
           // name="control-hooks"
-          onFinish={onFinish}
-          // onFinish={(values) => {console.log({ values }); }}
-          onFinishFailed={onFinishFailed}
-          
-
+        onFinish={onFinish}
+        // onFinish={(values) => {console.log({ values }); }}
+        onFinishFailed={onFinishFailed}
         style={{
           maxWidth: 600,
           textAlign: 'center',
         }}
           >
           
-        <Form.Item name={'audioFile'} >
-            {/* <Upload {...props}> */}
-          <Upload>
-                <Button icon={<UploadOutlined />}>Select audio</Button>
+          <Form.Item
+            name={'audioFile'}
+            // dont know what propname does. understand 149 n 150
+            valuePropName="fileList"
+            getValueFromEvent={(event) => {
+              return event?.fileList;
+            }}
+            rules={[
+              {
+                required: true,
+                message: 'Please select a file.'
+              },
+              {
+                validator(_, fileList) {
+                  return new Promise((resolve, reject) => {
+                    if (fileList && fileList[0].size > 500000) {
+                      reject('File size exceeded');
+                      message.error('File size exceeded');
+                    }
+                    else {
+                      resolve('Success');
+                    }
+                  });
+              },
+              },
+            ]}
+          >
+          {/* <Upload {...props}> */}
+          <Upload
+              maxCount={1}
+              beforeUpload={(file) => {
+                return new Promise((resolve, reject) => {
+                  if (file.size > 500000) {
+                    reject('File size exceeded');
+                    message.error('File size exceeded');
+                  }
+                  else {
+                    resolve('Success');
+                  }
+                })
+              }}
+              customRequest={(info) => {
+                setFileList([info.file]);
+
+               }}
+              showUploadList={false}
+          >
+              <Button icon={<UploadOutlined />}>Select audio</Button>
+              {fileList[0]?.name}
           </Upload>
         </Form.Item>
 

@@ -96,9 +96,7 @@ app.post("/api/sendData", async (req, res) => {
 //? 20240319 1730 trying to do POST to AWS s3
 
 
-//* logs
-//? file upload - prevent form submission without file, remove loading animation, show static filename, submit button passes file data & execute next steps
-// credit: https://www.youtube.com/watch?v=2EPfEnNwtWU
+
 
 
 //? #1 gpt code for chat assistant

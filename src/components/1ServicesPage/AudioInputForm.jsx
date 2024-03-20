@@ -212,6 +212,10 @@ export default function AudioInputForm({ user, setUser, setResponseMessage }) {
 }
 
 
+//* logs
+//? file upload - prevent form submission without file, remove loading animation, show static filename, submit button passes file data & execute next steps
+// credit: https://www.youtube.com/watch?v=2EPfEnNwtWU
+
 
 // import { Button, Form, Input, Select, Space, message, Upload } from "antd";
 // const { Option } = Select;
